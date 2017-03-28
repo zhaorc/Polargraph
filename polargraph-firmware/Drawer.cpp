@@ -150,6 +150,7 @@ void Drawer::step(long steps_m1, long steps_m2) {
 	unsigned long m1_time = now, m2_time = now;
 	unsigned int m1_state = MOTOR_STATE_PULSE, m2_state = MOTOR_STATE_PULSE;
 	while (m1_steps > 0 || m2_steps > 0) {
+		//TODO Í¬²½servo
 		now = micros();
 		switch (m1_state) {
 			case MOTOR_STATE_PULSE:
