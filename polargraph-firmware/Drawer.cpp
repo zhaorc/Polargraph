@@ -15,16 +15,18 @@ Drawer::Drawer() {
 	pinMode(this->m2_dir_pin, OUTPUT);
 	pinMode(this->m2_step_pin, OUTPUT);
 
-	segment_length = (long) (segment_length * mm_2_pixel);
-	x1 *= mm_2_pixel;
-	y1 *= mm_2_pixel;
-	diameter *= mm_2_pixel;
-	distance *= mm_2_pixel;
-	canvas_offsetX *= mm_2_pixel;
-	canvas_offsetY *= mm_2_pixel;
-	thread_per_step *= mm_2_pixel;
-	pen_offsetX *= mm_2_pixel;
-	pen_offsetY *= mm_2_pixel;
+//	segment_length = (long) (segment_length * mm_2_pixel);
+//	x1 *= mm_2_pixel;
+//	y1 *= mm_2_pixel;
+//	pen_offsetX *= mm_2_pixel;
+//	pen_offsetY *= mm_2_pixel;
+//	diameter *= mm_2_pixel;
+//	thread_per_step *= mm_2_pixel;
+//
+//	distance *= mm_2_pixel;
+//	canvas_offsetX *= mm_2_pixel;
+//	canvas_offsetY *= mm_2_pixel;
+
 }
 
 void Drawer::initPen() {
@@ -220,4 +222,17 @@ void Drawer::setPen(int tipWidth) {
 void Drawer::setPaper(int offsetX, int offsetY) {
 	this->canvas_offsetX = offsetX;
 	this->canvas_offsetY = offsetY;
+
+	segment_length = (long) (segment_length * mm_2_pixel);
+	x1 *= mm_2_pixel;
+	y1 *= mm_2_pixel;
+
+	pen_offsetX *= mm_2_pixel;
+	pen_offsetY *= mm_2_pixel;
+	diameter *= mm_2_pixel;
+	thread_per_step *= mm_2_pixel;
+
+	distance *= mm_2_pixel;
+	canvas_offsetX *= mm_2_pixel;
+	canvas_offsetY *= mm_2_pixel;
 }
