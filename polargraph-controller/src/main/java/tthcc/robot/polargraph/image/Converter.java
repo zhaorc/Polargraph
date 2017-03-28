@@ -17,31 +17,26 @@ import com.mortennobel.imagescaling.ResampleOp;
 @Data
 public abstract class Converter {
 
-    protected static final int   WHITE        = 0xff;
-    protected static final int   BLACK        = 0x00;
-    protected static final float WEIGHT_RED   = 0.33f;
-    protected static final float WEIGHT_GREEN = 0.56f;
-    protected static final float WEIGHT_BLUE  = 0.11f;
-
     //画布
-    protected Paper              paper;
+    protected Paper  paper;
     //画笔
-    protected Pen                pen;
+    protected Pen    pen;
     //像素块
-    protected Pixel              pixel;
-    protected String             filename;
+    protected Pixel  pixel;
+    protected String filename;
 
     protected abstract int[][] convert(int[][] data);
 
-    public int[][] convert(String filename) throws Exception {
+    public int[][] convert(String filename, int offsetX, int width, int offsetY, int height) throws Exception {
+
         this.filename = filename;
         BufferedImage image = ImageIO.read(new File(filename));
-        int w = image.getWidth();
-        int h = image.getHeight();
+        int w = width;
+        int h = height;
         int[][] data = new int[h][w];
         for (int y = 0; y < h; y++) {
             for (int x = 0; x < w; x++) {
-                data[y][x] = image.getRGB(x, y);
+                data[y][x] = image.getRGB(x + offsetX, y + offsetY);
             }
         }
         data = cut(data);
@@ -49,6 +44,22 @@ public abstract class Converter {
         data = convert(data);
 
         return data;
+
+        //        this.filename = filename;
+        //        BufferedImage image = ImageIO.read(new File(filename));
+        //        int w = image.getWidth();
+        //        int h = image.getHeight();
+        //        int[][] data = new int[h][w];
+        //        for (int y = 0; y < h; y++) {
+        //            for (int x = 0; x < w; x++) {
+        //                data[y][x] = image.getRGB(x, y);
+        //            }
+        //        }
+        //        data = cut(data);
+        //        data = scale(data);
+        //        data = convert(data);
+        //
+        //        return data;
 
     }
 

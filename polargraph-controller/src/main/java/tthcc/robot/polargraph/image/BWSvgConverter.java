@@ -14,9 +14,7 @@ public class BWSvgConverter extends Converter {
         data = gray(data);
         data = diagonal(data);
         toSVG(data);
-
         save("result", Constants.TYPE_COLOR, data);
-
         return data;
     }
 
@@ -35,7 +33,7 @@ public class BWSvgConverter extends Converter {
                 r = (data[y][x] >> 16) & 0xff;
                 g = (data[y][x] >> 8) & 0xff;
                 b = (data[y][x]) & 0xff;
-                data[y][x] = (int) (r * WEIGHT_RED + g * WEIGHT_GREEN + b * WEIGHT_BLUE);
+                data[y][x] = (int) (r * Constants.WEIGHT_RED + g * Constants.WEIGHT_GREEN + b * Constants.WEIGHT_BLUE);
             }
         }
         save("gray", Constants.TYPE_GRAY, data);
@@ -98,7 +96,7 @@ public class BWSvgConverter extends Converter {
                     }
                     if (x == X) {
                         if (x1 > -1) {
-                            if (data[y][x] == BLACK) {
+                            if (data[y][x] == Constants.BLACK) {
                                 pathList.add(path(k, b, x1, x));
                             } else {
                                 pathList.add(path(k, b, x1, x - 1));
@@ -107,12 +105,12 @@ public class BWSvgConverter extends Converter {
                         }
                         break;
                     }
-                    if (x1 == -1 && data[y][x] == BLACK) {
+                    if (x1 == -1 && data[y][x] == Constants.BLACK) {
                         x1 = x;
                         upflag = false;
                         continue;
                     }
-                    if (x1 > -1 && data[y][x] == WHITE) {
+                    if (x1 > -1 && data[y][x] == Constants.WHITE) {
                         if (checkLength(data, x, y, 1, -1, Constants.MIN_PIXEL_ON_LINE)) {
                             pathList.add(path(k, b, x1, x - 1));
                             x1 = -1;
@@ -142,7 +140,7 @@ public class BWSvgConverter extends Converter {
                     }
                     if (y == Y) {
                         if (x1 > -1) {
-                            if (data[y][x] == BLACK) {
+                            if (data[y][x] == Constants.BLACK) {
                                 pathList.add(path(k, b, x1, x));
                             } else {
                                 pathList.add(path(k, b, x1, x + 1));
@@ -151,12 +149,12 @@ public class BWSvgConverter extends Converter {
                         }
                         break;
                     }
-                    if (x1 == -1 && data[y][x] == BLACK) {
+                    if (x1 == -1 && data[y][x] == Constants.BLACK) {
                         x1 = x;
                         downflag = false;
                         continue;
                     }
-                    if (x1 > -1 && data[y][x] == WHITE) {
+                    if (x1 > -1 && data[y][x] == Constants.WHITE) {
                         if (checkLength(data, x, y, -1, 1, Constants.MIN_PIXEL_ON_LINE)) {
                             pathList.add(path(k, b, x1, x + 1));
                             x1 = -1;
@@ -216,7 +214,7 @@ public class BWSvgConverter extends Converter {
             int[][] block = generatePixel(n, k - level / 2);
             for (int y = 0; y < n; y++) {
                 for (int x = 0; x < n; x++) {
-                    if (block[y][x] == BLACK) {
+                    if (block[y][x] == Constants.BLACK) {
                         slash[n - 1 - y][x] = block[y][x];
                     }
                 }
@@ -249,7 +247,7 @@ public class BWSvgConverter extends Converter {
         // 初始化为白色
         for (int y = 0; y < n; y++) {
             for (int x = 0; x < n; x++) {
-                block[y][x] = WHITE;
+                block[y][x] = Constants.WHITE;
             }
         }
 
@@ -326,7 +324,7 @@ public class BWSvgConverter extends Converter {
         int x1 = n / 2 - maxLine / 2;
         int x2 = n / 2 + maxLine / 2 - 1;
         for (int x = x1; x <= x2; x++) {
-            block[n - 1 - x][x] = BLACK;
+            block[n - 1 - x][x] = Constants.BLACK;
         }
     }
 
@@ -344,7 +342,7 @@ public class BWSvgConverter extends Converter {
         int x1 = n / 2 - maxLine / 2;
         int x2 = n / 2 + maxLine / 2 - 1;
         for (int x = x1; x <= x2; x++) {
-            block[n - 1 - x][x] = BLACK;
+            block[n - 1 - x][x] = Constants.BLACK;
         }
     }
 
@@ -365,7 +363,7 @@ public class BWSvgConverter extends Converter {
         int y = 0;
         for (int x = x1; x <= x2; x++) {
             y = n - 1 - x;
-            block[mirror - x][mirror - y] = BLACK;
+            block[mirror - x][mirror - y] = Constants.BLACK;
             //            block[n - 1 - x][x] = BLACK;
         }
     }

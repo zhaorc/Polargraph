@@ -9,7 +9,7 @@ public enum Paper {
     A4(210, 297, 5, 5),
     A5(148, 210, 5, 5),
     //自定义
-    X1(265, 355, 5, 5);
+    X1(305, 905, 5, 5);
 
     private final int width;
     private final int height;

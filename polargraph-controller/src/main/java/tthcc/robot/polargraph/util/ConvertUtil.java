@@ -78,6 +78,68 @@ public class ConvertUtil {
         return convert4(src, cmap);
     }
 
+    public static int[][] convert4(int[][] data) {
+        //        int[] cmap = new int[] { 0x000000,//
+        //                0x800000,//
+        //                0x008000,//
+        //                0x808000,//
+        //                0x000080,//
+        //                0x800080,//
+        //                0x008080,//
+        //                0x808080,//
+        //                0xC0C0C0,//
+        //                0xFF0000,//
+        //                0x00FF00,//
+        //                0xFFFF00,//
+        //                0x0000FF,//
+        //                0xFF00FF,//
+        //                0x00FFFF,//
+        //                0xFFFFFF };
+        int[] cmap = new int[] { 0x000000,//
+
+                0xA2A2A2,//
+                //                0x993333,//
+                //                0x996666,//
+                0xAEAEAE,//
+                0xCC6600,//
+                //                0x999966,//
+                //                0x999933,//
+                0xFFCC99,//
+                0xCCCCCC,//
+                //
+                0xCC6633,//
+                0xCC9966,//
+                0x663300,//
+                0x993300,//
+                0x996600,//
+                //                0xFFCCCC,//
+                //                0xFFFFCC,//
+                //                0xDEDEDE,//
+                //                0x996633,//
+                //                0xCCFFFF,//
+                //                0xFCFCFC,//
+                //                0xF6F6F6,//
+                //                0xE4E4E4,//
+                //                0xEAEAEA,//
+                //
+                0xFFFFFF };
+        int h = data.length;
+        int w = data[0].length;
+        BufferedImage src = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                src.setRGB(x, y, data[y][x]);
+            }
+        }
+        BufferedImage dest = convert4(src, cmap);
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                data[y][x] = dest.getRGB(x, y) & 0xffffff;
+            }
+        }
+        return data;
+    }
+
     /**
      * Converts the source image to 4-bit colour using the given colour map. No
      * transparency.
@@ -91,7 +153,7 @@ public class ConvertUtil {
     public static BufferedImage convert4(BufferedImage src, int[] cmap) {
         IndexColorModel icm = new IndexColorModel(4, cmap.length, cmap, 0, false, Transparency.OPAQUE,
                 DataBuffer.TYPE_BYTE);
-        BufferedImage dest = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_BYTE_BINARY, icm);
+        BufferedImage dest = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_BYTE_INDEXED, icm);
         ColorConvertOp cco = new ColorConvertOp(src.getColorModel().getColorSpace(), dest.getColorModel()
                 .getColorSpace(), null);
         cco.filter(src, dest);
@@ -112,6 +174,34 @@ public class ConvertUtil {
                 .getColorSpace(), null);
         cco.filter(src, dest);
         return dest;
+    }
+
+    /**
+     * Converts the source image to 8-bit colour using the default 256-colour
+     * palette. No transparency.
+     * 
+     * @param src the source image to convert
+     * @return a copy of the source image with an 8-bit colour depth
+     */
+    public static int[][] convert8(int[][] data) {
+        int h = data.length;
+        int w = data[0].length;
+        BufferedImage src = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                src.setRGB(x, y, data[y][x]);
+            }
+        }
+        BufferedImage dest = new BufferedImage(w, h, BufferedImage.TYPE_BYTE_INDEXED);
+        ColorConvertOp cco = new ColorConvertOp(src.getColorModel().getColorSpace(), dest.getColorModel()
+                .getColorSpace(), null);
+        cco.filter(src, dest);
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                data[y][x] = dest.getRGB(x, y) & 0xffffff;
+            }
+        }
+        return data;
     }
 
     /**

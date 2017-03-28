@@ -2,6 +2,16 @@ package tthcc.robot.polargraph.constant;
 
 public class Constants {
 
+    public static final int    RED               = 0xFF0000;
+    public static final int    GREEN             = 0x00FF00;
+    public static final int    BLUE              = 0x0000FF;
+    public static final int    WHITE             = 0xFFFFFF;
+    public static final int    BLACK             = 0x000000;
+
+    public static final float  WEIGHT_RED        = 0.33f;
+    public static final float  WEIGHT_GREEN      = 0.56f;
+    public static final float  WEIGHT_BLUE       = 0.11f;
+
     public static final int    TYPE_COLOR        = 1;
     public static final int    TYPE_GRAY         = 2;
     public static final String SVG_HEADER        = "<?xml version=\"1.0\" encoding=\"GBK\" standalone=\"no\"?>\r\n";

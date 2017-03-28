@@ -125,8 +125,9 @@ public class Controller implements SerialPortEventListener {
      * @param distance
      */
     private void setMotor(String distance) throws Exception {
-        printController("-", Constants.CMD_MOTOR);
-        outs.write(String.format("%s %s", Constants.CMD_MOTOR, distance).getBytes());
+        String line = String.format("%s %s", Constants.CMD_MOTOR, distance);
+        printController("-", line);
+        outs.write(line.getBytes());
         outs.write(Constants.BUF_END);
     }
 
@@ -134,8 +135,9 @@ public class Controller implements SerialPortEventListener {
      * @param pen
      */
     private void setPen(String pen) throws Exception {
-        printController("-", Constants.CMD_PEN);
-        outs.write(String.format("%s %s", Constants.CMD_PEN, pen).getBytes());
+        String line = String.format("%s %s", Constants.CMD_PEN, pen);
+        printController("-", line);
+        outs.write(line.getBytes());
         outs.write(Constants.BUF_END);
     }
 
@@ -143,8 +145,9 @@ public class Controller implements SerialPortEventListener {
      * @param paper
      */
     private void setPaper(String offsetX, String offsetY) throws Exception {
-        printController("-", Constants.CMD_PAPER);
-        outs.write(String.format("%s %s %s", Constants.CMD_PAPER, offsetX, offsetY).getBytes());
+        String line = String.format("%s %s %s", Constants.CMD_PAPER, offsetX, offsetY);
+        printController("-", line);
+        outs.write(line.getBytes());
         outs.write(Constants.BUF_END);
     }
 
@@ -290,10 +293,10 @@ public class Controller implements SerialPortEventListener {
             controller.connect("COM4");
             Thread.sleep(3000);
 
-            controller.setMotor(args[1]);
+            controller.setPen(args[2]);
             Thread.sleep(2000);
 
-            controller.setPen(args[2]);
+            controller.setMotor(args[1]);
             Thread.sleep(2000);
 
             controller.setPaper(args[3], args[4]);
